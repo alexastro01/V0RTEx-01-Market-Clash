@@ -47,7 +47,7 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
     }
 
 
-
+   //Get prices function
 
     function getBtcPrice() public view returns (uint256) {
         (, int256 price, , , ) = priceFeedBtc.latestRoundData();
@@ -63,6 +63,68 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
         (, int256 price, , , ) = priceFeedLink.latestRoundData();
         return uint256(price);
     }
+
+
+    function getStatBtc(uint multiplier) public view returns(uint256) {
+        // BTC ATTACK = LOW
+        // BTC DEFENSE = HIGH
+
+        uint256 btcPrice = getBtcPrice();
+        
+        uint8[] memory arrayOfNumbers = uintToArray(btcPrice);
+
+
+        uint number1 = arrayOfNumbers[0];
+        uint number2 = arrayOfNumbers[1];
+        uint number3 = arrayOfNumbers[2];
+        uint number4 = arrayOfNumbers[3];
+
+        uint stat = (number1 + number2 + number3 + number4) * multiplier;
+
+        return stat;
+    }
+
+
+        function getStatETH(uint multiplier) public view returns(uint256) {
+        // ETH ATTACK = MEDIUM
+        // ETH DEFENSE = MEDIUM
+        
+        uint256 ethPrice = getETHPrice();
+        
+        uint8[] memory arrayOfNumbers = uintToArray(ethPrice);
+
+
+        uint number1 = arrayOfNumbers[0];
+        uint number2 = arrayOfNumbers[1];
+        uint number3 = arrayOfNumbers[2];
+        uint number4 = arrayOfNumbers[3];
+
+        uint stat = (number1 + number2 + number3 + number4) * multiplier;
+
+        return stat;
+    }
+
+       function getStatLink(uint multiplier) public view returns(uint256) {
+        // LINK ATTACK = HIGH
+        // LINK DEFENSE = LOW
+        
+        uint256 linkPrice = getLinkPrice();
+        
+        uint8[] memory arrayOfNumbers = uintToArray(linkPrice);
+
+
+        uint number1 = arrayOfNumbers[0];
+        uint number2 = arrayOfNumbers[1];
+        uint number3 = arrayOfNumbers[2];
+        uint number4 = arrayOfNumbers[3];
+
+        uint stat = (number1 + number2 + number3 + number4) * multiplier;
+
+        return stat;
+    }
+
+
+
 
        // Function to convert a uint to an array of its digits
     function uintToArray(uint256 number) public pure returns (uint8[] memory) {
@@ -85,6 +147,9 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
         }
         return digits;
     }
+
+  
+
 
    // The following functions are overrides required by Solidity.
 
