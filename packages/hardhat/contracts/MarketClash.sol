@@ -31,9 +31,13 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
      * Aggregator: BTC/USD
      */
   
-   address btcuscAddress = 0x87dce67002e66C17BC0d723Fe20D736b80CAaFda;
+    address btcuscAddress = 0x87dce67002e66C17BC0d723Fe20D736b80CAaFda;
     address ethusdAddress = 0x59F1ec1f10bD7eD9B938431086bC1D9e233ECf41;
     address linkusdAddress = 0xaC3E04999aEfE44D508cB3f9B972b0Ecd07c1efb;
+
+    uint highMultiplier = 3;
+    uint mediumMultiplier = 2;
+    uint lowMultiplier = 1;
 
 
     constructor() ERC721("Price Feed SVG", "pfSVG") {
@@ -58,6 +62,28 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
      function getLinkPrice() public view returns (uint256) {
         (, int256 price, , , ) = priceFeedLink.latestRoundData();
         return uint256(price);
+    }
+
+       // Function to convert a uint to an array of its digits
+    function uintToArray(uint256 number) public pure returns (uint8[] memory) {
+        uint8[] memory digits = new uint8[](getNumDigits(number));
+
+        for (uint256 i = digits.length; i > 0; i--) {
+            digits[i - 1] = uint8(number % 10);
+            number /= 10;
+        }
+
+        return digits;
+    }
+
+    // Function to calculate the number of digits in a uint
+    function getNumDigits(uint256 number) internal pure returns (uint256) {
+        uint256 digits = 0;
+        while (number != 0) {
+            number /= 10;
+            digits++;
+        }
+        return digits;
     }
 
    // The following functions are overrides required by Solidity.
