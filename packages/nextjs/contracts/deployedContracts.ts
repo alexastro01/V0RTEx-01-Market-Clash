@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0x1aD34851079152A327c75418AFd17c2Ebe74ec07",
+      address: "0x265de91C3aD0baE6aFa9B37Ae854F28F135E8027",
       abi: [
         {
           inputs: [],
