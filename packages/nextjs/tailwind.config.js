@@ -1,9 +1,31 @@
 /** @type {import('tailwindcss').Config} */
+
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./utils/**/*.{js,ts,jsx,tsx}"],
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), addVariablesForColors],
   darkTheme: "dark",
-  darkMode: ["selector", "[data-theme='dark']"],
+  darkMode: "class",
+  theme: {
+    extend: {
+      animation: {
+        aurora: "aurora 60s linear infinite",
+      },
+      keyframes: {
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%",
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%",
+          },
+        },
+      },
+    },
+  },
   // DaisyUI theme colors
   daisyui: {
     themes: [
@@ -85,3 +107,14 @@ module.exports = {
     },
   },
 };
+
+function addVariablesForColors({ addBase, theme }) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+ 
+  addBase({
+    ":root": newVars,
+  });
+}
