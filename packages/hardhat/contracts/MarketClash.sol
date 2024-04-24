@@ -26,27 +26,7 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
         uint8 defence; 
     }
 
-        function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
-        if (_i == 0) {
-            return "0";
-        }
-        uint j = _i;
-        uint len;
-        while (j != 0) {
-            len++;
-            j /= 10;
-        }
-        bytes memory bstr = new bytes(len);
-        uint k = len;
-        while (_i != 0) {
-            k = k-1;
-            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
-            bytes1 b1 = bytes1(temp);
-            bstr[k] = b1;
-            _i /= 10;
-        }
-        return string(bstr);
-    }
+
 
     using Counters for Counters.Counter;
     using Strings for uint256;
@@ -130,23 +110,6 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
         attributes[tokenId] = Attr(_class, uint8(attack), uint8(defence));
     }
 
-   //Get prices function
-
-    function getBtcPrice() public view returns (uint256) {
-        (, int256 price, , , ) = priceFeedBtc.latestRoundData();
-        return uint256(price);
-    }
-
-       function getETHPrice() public view returns (uint256) {
-        (, int256 price, , , ) = priceFeedETH.latestRoundData();
-        return uint256(price);
-    }
-
-     function getLinkPrice() public view returns (uint256) {
-        (, int256 price, , , ) = priceFeedLink.latestRoundData();
-        return uint256(price);
-    }
-
 
     function getStatBtc(uint multiplier) public view returns(uint256) {
         // BTC ATTACK = LOW
@@ -209,7 +172,72 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
 
 
 
-       // Function to convert a uint to an array of its digits
+  
+  //METADATA
+  
+   
+    function tokenURI(uint256 tokenId) override(ERC721, ERC721URIStorage) public view returns (string memory) {
+        string memory json = Base64.encode(
+            bytes(string(
+                abi.encodePacked(
+                    '{"name": "', uint2str(tokenId), '",',
+                    '"image": "', imageMapping[tokenId], '",',
+                    '"attributes": [{"trait_type": "Class", "value": ', classMapping[tokenId], '},',
+                    '{"trait_type": "Attack", "value": ', uint2str(attributes[tokenId].attack), '},',
+                    '{"trait_type": "Defence", "value": ', uint2str(attributes[tokenId].defence), '},',
+                    ']}'
+                )
+            ))
+        );
+        return string(abi.encodePacked('data:application/json;base64,', json));
+    }
+
+
+    //helper functions
+
+       //Get prices function
+
+    function getBtcPrice() public view returns (uint256) {
+        (, int256 price, , , ) = priceFeedBtc.latestRoundData();
+        return uint256(price);
+    }
+
+       function getETHPrice() public view returns (uint256) {
+        (, int256 price, , , ) = priceFeedETH.latestRoundData();
+        return uint256(price);
+    }
+
+     function getLinkPrice() public view returns (uint256) {
+        (, int256 price, , , ) = priceFeedLink.latestRoundData();
+        return uint256(price);
+    }
+
+
+
+    
+        function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
+        if (_i == 0) {
+            return "0";
+        }
+        uint j = _i;
+        uint len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint k = len;
+        while (_i != 0) {
+            k = k-1;
+            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
+            bytes1 b1 = bytes1(temp);
+            bstr[k] = b1;
+            _i /= 10;
+        }
+        return string(bstr);
+    }
+
+         // Function to convert a uint to an array of its digits
     function uintToArray(uint256 number) public pure returns (uint8[] memory) {
         uint8[] memory digits = new uint8[](getNumDigits(number));
 
@@ -229,24 +257,6 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
             digits++;
         }
         return digits;
-    }
-
-  
-   
-    function tokenURI(uint256 tokenId) override(ERC721, ERC721URIStorage) public view returns (string memory) {
-        string memory json = Base64.encode(
-            bytes(string(
-                abi.encodePacked(
-                    '{"name": "', uint2str(tokenId), '",',
-                    '"image": "', imageMapping[tokenId], '",',
-                    '"attributes": [{"trait_type": "Class", "value": ', classMapping[tokenId], '},',
-                    '{"trait_type": "Attack", "value": ', uint2str(attributes[tokenId].attack), '},',
-                    '{"trait_type": "Defence", "value": ', uint2str(attributes[tokenId].defence), '},',
-                    ']}'
-                )
-            ))
-        );
-        return string(abi.encodePacked('data:application/json;base64,', json));
     }
 
    // The following functions are overrides required by Solidity.
