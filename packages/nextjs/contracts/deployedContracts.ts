@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0x2996ddC96FD321555222BDC986002FD2Dc8BF8cf",
+      address: "0x2853CB399033447AAf3A14c8c4bC41Be43c0856e",
       abi: [
         {
           inputs: [],
@@ -372,11 +372,6 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
               internalType: "enum MarketClash.Class",
               name: "_class",
               type: "uint8",
@@ -521,12 +516,50 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "tokenIdAttack",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "tokenIdCounter",
           outputs: [
             {
               internalType: "uint256",
               name: "_value",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "tokenIdDefense",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
               type: "uint256",
             },
           ],

@@ -63,11 +63,11 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     uint mediumMultiplier = 2;
     uint lowMultiplier = 1;
 
-    string btcImage = "";
-    string ethImage = "";
-    string linkImage = "";
+    string btcImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmdztjsyvKcLzjpcAfN2yWEgrGc46vAyKTUGZ6aYFCStu3/1.png";
+    string ethImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmdztjsyvKcLzjpcAfN2yWEgrGc46vAyKTUGZ6aYFCStu3/2.png";
+    string linkImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmdztjsyvKcLzjpcAfN2yWEgrGc46vAyKTUGZ6aYFCStu3/3.png";
 
-    uint currentTokenId;
+    uint currentTokenId = 0;
 
 
     constructor() ERC721("MarketClash", "MK") {
@@ -86,7 +86,8 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         ) 
     public {
         require(_class == Class.Btc || _class == Class.Eth || _class == Class.Link, "Invalid class");
-        uint tokenId = currentTokenId++;
+        currentTokenId++;
+        uint tokenId = currentTokenId;
         uint256 attack;
         uint256 defence;
 
@@ -116,7 +117,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
          
 
-  
+    
         attributes[tokenId] = Attr(_class, uint8(attack), uint8(defence));
         _safeMint(to, tokenId);
     }
