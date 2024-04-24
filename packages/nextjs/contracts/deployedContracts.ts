@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0x82BbA8BacC0A645Ce75961dF16238A86EE3cebd2",
+      address: "0xFCBDf86140F0c16Fc3956e59f4c1E1eD873fdAB9",
       abi: [
         {
           inputs: [],
@@ -329,6 +329,25 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "address",
+              name: "_address",
+              type: "address",
+            },
+          ],
+          name: "getRecentPackOpenedByUser",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "uint256",
               name: "multiplier",
               type: "uint256",
@@ -500,6 +519,30 @@ const deployedContracts = {
               internalType: "address",
               name: "",
               type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "recentOpenedPackByPlayer",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
             },
           ],
           stateMutability: "view",

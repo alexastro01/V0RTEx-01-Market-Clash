@@ -14,6 +14,16 @@ const nextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding");
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'fuchsia-defeated-ermine-208.mypinata.cloud',
+        port: '',
+        pathname: '/ipfs/**',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

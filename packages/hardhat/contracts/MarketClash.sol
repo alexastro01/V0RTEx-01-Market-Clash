@@ -130,7 +130,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         attributes[tokenId] = Attr(_class, uint8(attack), uint8(defence));
         _safeMint(to, tokenId);
 
-        return _tokenIdMinted;
+        return tokenId;
     }
 
     
@@ -265,6 +265,10 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     }
 
 
+
+    function getRecentPackOpenedByUser(address _address) public view returns(uint[] memory){
+        return recentOpenedPackByPlayer[_address];
+    }
 
     
         function uint2str(uint _i) internal pure returns (string memory _uintAsString) {

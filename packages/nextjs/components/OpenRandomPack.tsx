@@ -1,26 +1,45 @@
 "use client";
 
-import Image from 'next/image'
-import React from 'react'
-import { useScaffoldWriteContract, useScaffoldWatchContractEvent } from '~~/hooks/scaffold-eth';
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { useAccount } from "wagmi";
+import {
+  useScaffoldReadContract,
+  useScaffoldWatchContractEvent,
+  useScaffoldWriteContract,
+} from "~~/hooks/scaffold-eth";
+import CardRevealComponent from "./CardRevealComponent";
 
 const OpenRandomPack = () => {
+  const { address } = useAccount();
+  const { writeContractAsync: writeYourContractAsync, data } = useScaffoldWriteContract("MarketClash");
+  const { data: recentPackOpenedByUser, isLoading } = useScaffoldReadContract({
+    contractName: "MarketClash",
+    functionName: "getRecentPackOpenedByUser",
+    args: [address],
+    watch: true,
+  });
 
-    const { writeContractAsync: writeYourContractAsync, data } = useScaffoldWriteContract("MarketClash");
+  const [openedTokenIds, setOpenedTokenIds] = useState([""]);
+  const [freshOpen, setFreshOpen] = useState(false); 
+  const [opened, setOpened] = useState(false);
 
   const handleOpenPack = async () => {
     try {
       await writeYourContractAsync(
         {
           functionName: "openPack",
-          args: [0,1,2],
-    
+          args: [2, 0, 1],
         },
         {
-         //Get mapping of most recent pack on block confirmation
-         //change state, display cards
+          //Get mapping of most recent pack on block confirmation
+          //change state, display cards
           onBlockConfirmation: txnReceipt => {
+            setFreshOpen(true)
             console.log("📦 Transaction blockHash", txnReceipt);
+          },
+          onSuccess: data => {
+            console.log("📦 Transaction success", data);
           },
         },
       );
@@ -29,28 +48,44 @@ const OpenRandomPack = () => {
     }
   };
 
-  useScaffoldWatchContractEvent({
-    contractName: "MarketClash",
-    eventName: "openedPackByPlayer",
-    // The onLogs function is called whenever a GreetingChange event is emitted by the contract.
-    // Parameters emitted by the event can be destructed using the below example
-    // for this example: event GreetingChange(address greetingSetter, string newGreeting, bool premium, uint256 value);
-    onLogs: logs => {
-      logs.map(log => {
-        console.log("📦 Event logs", log.args);
-      });
-    },
-  });
+  useEffect(() => {
+    if(freshOpen === true){
+    console.log(recentPackOpenedByUser);
+
+    const arrayIds = recentPackOpenedByUser
+      ? [
+          recentPackOpenedByUser[0].toString(),
+          recentPackOpenedByUser[1].toString(),
+          recentPackOpenedByUser[2].toString(),
+        ]
+      : [""];
+
+    console.log(arrayIds);
+    setOpenedTokenIds(arrayIds);
+    setOpened(true);
+      }
+  }, [recentPackOpenedByUser, isLoading, freshOpen]);
 
   return (
     <div>
-        <div className='grid grid-cols-1 justify-center justify-items-center items-center mt-12'>
-        <Image src={'/mystery.png'} width={"200"} height={"200"} alt="open pack" className='shadow-2xl rounded-lg animate-pulse-slow' />
-        <button className='btn btn-primary mt-8 text-xl btn-md'
-         onClick={() => handleOpenPack()}>Open Pack</button>
+      {opened === false ? (
+        <div className="grid grid-cols-1 justify-center justify-items-center items-center mt-12">
+          <Image
+            src={"/mystery.png"}
+            width={"200"}
+            height={"200"}
+            alt="open pack"
+            className="shadow-2xl rounded-lg animate-pulse-slow"
+          />
+          <button className="btn btn-primary mt-8 text-xl btn-md" onClick={() => handleOpenPack()}>
+            Open Pack
+          </button>
         </div>
+      ) : (
+        <div><CardRevealComponent arrayOfIds={openedTokenIds} /></div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default OpenRandomPack
+export default OpenRandomPack;
