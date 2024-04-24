@@ -22,7 +22,7 @@ const CardsShowcase = () => {
   return (
     <>
     <div className='text-center flex justify-center'>
-     <TypewriterEffectSmooth words={words} className='text-white' />
+     <h1 className='text-5xl font-bold'>3 Types Of Cards</h1>
      </div>
     <div className='grid grid-cols-3'>
   
