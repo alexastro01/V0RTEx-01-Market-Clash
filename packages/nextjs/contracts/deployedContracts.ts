@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0x2853CB399033447AAf3A14c8c4bC41Be43c0856e",
+      address: "0xdd39100296c8c684f12c94253EacE228A0e1810f",
       abi: [
         {
           inputs: [],
@@ -209,6 +209,43 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256[]",
+              name: "_arrayOfCards",
+              type: "uint256[]",
+            },
+          ],
+          name: "createDeck",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "deckOfPlayer",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "uint256",
               name: "tokenId",
               type: "uint256",
@@ -393,6 +430,19 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "enum MarketClash.Class[]",
+              name: "_classes",
+              type: "uint8[]",
+            },
+          ],
+          name: "openPack",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {

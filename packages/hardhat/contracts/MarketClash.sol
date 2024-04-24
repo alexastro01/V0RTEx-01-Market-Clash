@@ -39,9 +39,10 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     mapping(uint256 => string) public classMapping;
     mapping(uint256 => uint256) public tokenIdAttack;
     mapping(uint256 => uint256) public tokenIdDefense;
+    
 
     //player mappings
-
+    mapping(address => uint[]) public deckOfPlayer;
 
 
     // Create price feed
@@ -132,8 +133,17 @@ contract MarketClash is ERC721, ERC721URIStorage  {
          require(ownerOf(_arrayOfCards[1]) == msg.sender, "You must own the card to add it to deck");
          require(ownerOf(_arrayOfCards[2]) == msg.sender, "You must own the card to add it to deck");
 
-
+        deckOfPlayer[msg.sender] = _arrayOfCards;
+        
     }
+
+    function openPack(Class[] calldata _classes) public {
+        require(_classes.length == 3, "pack size is 3");
+        mint(msg.sender, _classes[0]);
+        mint(msg.sender, _classes[1]);
+        mint(msg.sender, _classes[2]);
+    }
+
 
 
     function getStatBtc(uint multiplier) public view returns(uint256) {
