@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/Base64.sol";
 // Importing Chainlink contracts
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-contract GamePriceSVG is ERC721, ERC721URIStorage  {
+contract MarketClash is ERC721, ERC721URIStorage  {
 
 
    enum Class {
@@ -66,7 +66,7 @@ contract GamePriceSVG is ERC721, ERC721URIStorage  {
     string linkImage = "";
 
 
-    constructor() ERC721("Price Feed SVG", "pfSVG") {
+    constructor() ERC721("MarketClash", "MK") {
         priceFeedBtc = AggregatorV3Interface(btcuscAddress);
         priceFeedETH = AggregatorV3Interface(ethusdAddress);
         priceFeedLink = AggregatorV3Interface(linkusdAddress);
