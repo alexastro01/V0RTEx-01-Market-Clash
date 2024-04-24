@@ -36,6 +36,8 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     mapping(uint256 => Attr) public attributes;
     mapping(uint256 => string) public imageMapping;
     mapping(uint256 => string) public classMapping;
+    mapping(uint256 => uint256) public tokenIdAttack;
+    mapping(uint256 => uint256) public tokenIdDefense;
 
 
 
@@ -65,6 +67,8 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     string ethImage = "";
     string linkImage = "";
 
+    uint currentTokenId;
+
 
     constructor() ERC721("MarketClash", "MK") {
         priceFeedBtc = AggregatorV3Interface(btcuscAddress);
@@ -78,25 +82,31 @@ contract MarketClash is ERC721, ERC721URIStorage  {
    
     function mint(
         address to, 
-        uint256 tokenId, 
         Class _class
         ) 
     public {
         require(_class == Class.Btc || _class == Class.Eth || _class == Class.Link, "Invalid class");
+        uint tokenId = currentTokenId++;
         uint256 attack;
         uint256 defence;
 
          if(_class == Class.Btc) {
             attack = getStatBtc(lowMultiplier);
             defence = getStatBtc(highMultiplier);
+            tokenIdAttack[tokenId] = attack;
+            tokenIdDefense[tokenId] = defence;
             classMapping[tokenId] = "Btc";
             imageMapping[tokenId] = btcImage;
          } else if (_class == Class.Eth) {
             attack = getStatETH(mediumMultiplier);
             defence = getStatETH(mediumMultiplier);
+            tokenIdAttack[tokenId] = attack;
+            tokenIdDefense[tokenId] = defence;
             classMapping[tokenId] = "Eth";
             imageMapping[tokenId] = ethImage;
          } else if (_class == Class.Link){
+            tokenIdAttack[tokenId] = attack;
+            tokenIdDefense[tokenId] = defence;
             attack = getStatLink(highMultiplier);
             defence = getStatLink(lowMultiplier);
             classMapping[tokenId] = "Link";
@@ -106,8 +116,9 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
          
 
-        _safeMint(to, tokenId);
+  
         attributes[tokenId] = Attr(_class, uint8(attack), uint8(defence));
+        _safeMint(to, tokenId);
     }
 
 
