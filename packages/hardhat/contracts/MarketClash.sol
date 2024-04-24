@@ -20,7 +20,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         Link
     }
 
- struct Attr {
+    struct Attr {
         Class Class; 
         uint8 attack;
         uint8 defence; 
@@ -32,12 +32,15 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     using Strings for uint256;
 
     Counters.Counter public tokenIdCounter;
-
+    
+    //card mappings
     mapping(uint256 => Attr) public attributes;
     mapping(uint256 => string) public imageMapping;
     mapping(uint256 => string) public classMapping;
     mapping(uint256 => uint256) public tokenIdAttack;
     mapping(uint256 => uint256) public tokenIdDefense;
+
+    //player mappings
 
 
 
@@ -120,6 +123,16 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     
         attributes[tokenId] = Attr(_class, uint8(attack), uint8(defence));
         _safeMint(to, tokenId);
+    }
+
+    
+    function createDeck(uint[] calldata _arrayOfCards) public {
+         require(_arrayOfCards.length == 3, "Deck size must be 3");
+         require(ownerOf(_arrayOfCards[0]) == msg.sender, "You must own the card to add it to deck");
+         require(ownerOf(_arrayOfCards[1]) == msg.sender, "You must own the card to add it to deck");
+         require(ownerOf(_arrayOfCards[2]) == msg.sender, "You must own the card to add it to deck");
+
+
     }
 
 
