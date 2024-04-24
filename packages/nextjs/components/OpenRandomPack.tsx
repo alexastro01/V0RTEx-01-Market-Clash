@@ -17,6 +17,8 @@ const OpenRandomPack = () => {
     
         },
         {
+         //Get mapping of most recent pack on block confirmation
+         //change state, display cards
           onBlockConfirmation: txnReceipt => {
             console.log("📦 Transaction blockHash", txnReceipt);
           },

@@ -150,6 +150,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         uint secondCardTokenId = mint(msg.sender, _secondCardClass);
         uint thirdCardTokenId = mint(msg.sender, _thirdCardClass);
         uint [] memory pack = new uint[](3);
+        
         pack[0] = firstCardTokenId;
         pack[1] = secondCardTokenId;
         pack[2] = thirdCardTokenId;
