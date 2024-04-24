@@ -1,6 +1,7 @@
 import React from 'react'
 import { BentoGridComponent } from './BentoGrid'
 import BuiltWithComponent from './BuiltWithComponent'
+import Link from 'next/link'
 
 const Hero = () => {
   return (
@@ -9,7 +10,7 @@ const Hero = () => {
     <div className="max-w-2xl">
       <h1 className="text-5xl font-bold">The Crypto Currency Card Game</h1>
       <p className="py-6">Crypto prices affect the stats of your cards, are the markets in your favour?</p>
-      <button className="btn btn-primary">Get Started</button>
+      <Link href="/open-pack" className="btn btn-primary">Open a pack of cards</Link>
       <BuiltWithComponent />
     </div>
   </div>
