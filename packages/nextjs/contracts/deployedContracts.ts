@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0x265de91C3aD0baE6aFa9B37Ae854F28F135E8027",
+      address: "0x82BbA8BacC0A645Ce75961dF16238A86EE3cebd2",
       abi: [
         {
           inputs: [],
@@ -119,6 +119,31 @@ const deployedContracts = {
             },
           ],
           name: "Transfer",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "cardOne",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "cardTwo",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "cardThree",
+              type: "uint256",
+            },
+          ],
+          name: "openedPackByPlayer",
           type: "event",
         },
         {
@@ -415,7 +440,13 @@ const deployedContracts = {
             },
           ],
           name: "mint",
-          outputs: [],
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "_tokenIdMinted",
+              type: "uint256",
+            },
+          ],
           stateMutability: "nonpayable",
           type: "function",
         },

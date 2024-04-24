@@ -13,7 +13,9 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract MarketClash is ERC721, ERC721URIStorage  {
 
+   //Events
 
+   event openedPackByPlayer(uint indexed cardOne, uint indexed cardTwo, uint indexed cardThree);
 
   //pass array of enums
    enum Class {
@@ -41,6 +43,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     mapping(uint256 => string) public classMapping;
     mapping(uint256 => uint256) public tokenIdAttack;
     mapping(uint256 => uint256) public tokenIdDefense;
+    mapping(address => uint[]) public recentOpenedPackByPlayer;
     
 
     //player mappings
@@ -90,7 +93,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         address to, 
         Class _class
         ) 
-    public {
+    public returns (uint256 _tokenIdMinted) {
         require(_class == Class.Btc || _class == Class.Eth || _class == Class.Link, "Invalid class");
         currentTokenId++;
         uint tokenId = currentTokenId;
@@ -126,6 +129,8 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     
         attributes[tokenId] = Attr(_class, uint8(attack), uint8(defence));
         _safeMint(to, tokenId);
+
+        return _tokenIdMinted;
     }
 
     
@@ -141,10 +146,19 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
     function openPack(Class _firstCardClass, Class _secondCardClass, Class _thirdCardClass) public {
       
-        mint(msg.sender, _firstCardClass);
-        mint(msg.sender, _secondCardClass);
-        mint(msg.sender, _thirdCardClass);
-    }
+        uint firstCardTokenId = mint(msg.sender, _firstCardClass);
+        uint secondCardTokenId = mint(msg.sender, _secondCardClass);
+        uint thirdCardTokenId = mint(msg.sender, _thirdCardClass);
+        uint [] memory pack = new uint[](3);
+        pack[0] = firstCardTokenId;
+        pack[1] = secondCardTokenId;
+        pack[2] = thirdCardTokenId;
+
+        recentOpenedPackByPlayer[msg.sender] = pack;
+
+       emit openedPackByPlayer(firstCardTokenId, secondCardTokenId, thirdCardTokenId);
+    
+    } 
 
 
 
