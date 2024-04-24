@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0xdd39100296c8c684f12c94253EacE228A0e1810f",
+      address: "0x1aD34851079152A327c75418AFd17c2Ebe74ec07",
       abi: [
         {
           inputs: [],
@@ -435,9 +435,19 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "enum MarketClash.Class[]",
-              name: "_classes",
-              type: "uint8[]",
+              internalType: "enum MarketClash.Class",
+              name: "_firstCardClass",
+              type: "uint8",
+            },
+            {
+              internalType: "enum MarketClash.Class",
+              name: "_secondCardClass",
+              type: "uint8",
+            },
+            {
+              internalType: "enum MarketClash.Class",
+              name: "_thirdCardClass",
+              type: "uint8",
             },
           ],
           name: "openPack",

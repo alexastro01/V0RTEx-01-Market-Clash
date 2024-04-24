@@ -14,6 +14,8 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 contract MarketClash is ERC721, ERC721URIStorage  {
 
 
+
+  //pass array of enums
    enum Class {
         Btc,
         Eth,
@@ -110,10 +112,10 @@ contract MarketClash is ERC721, ERC721URIStorage  {
             classMapping[tokenId] = "Eth";
             imageMapping[tokenId] = ethImage;
          } else if (_class == Class.Link){
-            tokenIdAttack[tokenId] = attack;
-            tokenIdDefense[tokenId] = defence;
             attack = getStatLink(highMultiplier);
             defence = getStatLink(lowMultiplier);
+            tokenIdAttack[tokenId] = attack;
+            tokenIdDefense[tokenId] = defence;
             classMapping[tokenId] = "Link";
             imageMapping[tokenId] = linkImage;
          }
@@ -137,11 +139,11 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         
     }
 
-    function openPack(Class[] calldata _classes) public {
-        require(_classes.length == 3, "pack size is 3");
-        mint(msg.sender, _classes[0]);
-        mint(msg.sender, _classes[1]);
-        mint(msg.sender, _classes[2]);
+    function openPack(Class _firstCardClass, Class _secondCardClass, Class _thirdCardClass) public {
+      
+        mint(msg.sender, _firstCardClass);
+        mint(msg.sender, _secondCardClass);
+        mint(msg.sender, _thirdCardClass);
     }
 
 
