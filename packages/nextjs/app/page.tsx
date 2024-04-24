@@ -8,13 +8,19 @@ import { Address } from "~~/components/scaffold-eth";
 import { AuroraBackground } from "~~/components/ui/aurora-background";
 import { AuroraHeader } from "~~/components/AuroraHeader";
 import { ThreeDCardDemo } from "~~/components/CardDemo";
+import { WavyBackgroundDemo } from "~~/components/WavyBackgroundDemo";
+import CardsShowcase from "~~/components/CardsShowcase";
+import Hero from "~~/components/Hero";
+import BuiltWithComponent from "~~/components/BuiltWithComponent";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
 
   return (
     <>
-    <ThreeDCardDemo />
+    <Hero />
+
+    <CardsShowcase />
     </>
   );
 };
