@@ -49,6 +49,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     //match mappings
 
     //matchId[challenger][challenged] => returns match Id
+    //frontend route : example.com/match?challenger=0x90&challenged=0x80
     mapping(address => mapping (address => uint)) public matchId;
     mapping(uint => address) public player1InMatch;
     mapping(uint => address) public player2InMatch;
@@ -65,6 +66,8 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     address[] public playersWithDecks;
     mapping(address => bool) public playerHasDeck;
     mapping(address => uint[]) public deckOfPlayer;
+    //[matchId][player] = [1, 2, 3]; 
+    mapping(uint256 => mapping(address => uint[])) public deckUsedInMatchByPlayer;
 
 
     // Create price feed
@@ -104,7 +107,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
 
 
-   //function generate a Card 
+   //CARD GENERATION / PACK GENERATION / DECK GENERATION
    
     function mint(
         address to, 
@@ -183,6 +186,24 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     
     } 
 
+    // ---end CARD GENERATION / PACK GENERATION / DECK GENERATION
+
+    
+
+    //MATCH FUNCTIONS
+
+    function initializeMatch(address _challangedPlayer) public {
+       
+        uint[] memory deckOfPlayerChallenger = getDeckOfPlayer(msg.sender);
+        uint[] memory deckOfPlayerChallenged = getDeckOfPlayer(_challangedPlayer); 
+        
+        deckUsedInMatchByPlayer[matchIdCounter][msg.sender] = deckOfPlayerChallenger;
+        deckUsedInMatchByPlayer[matchIdCounter][_challangedPlayer] = deckOfPlayerChallenged;
+           
+        matchId[msg.sender][_challangedPlayer] = matchIdCounter;
+        matchIdCounter++;
+    }
+
 
 
     function getStatBtc(uint multiplier) public view returns(uint256) {
@@ -242,6 +263,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
         return stat;
     }
+    
 
 
 
@@ -299,7 +321,11 @@ contract MarketClash is ERC721, ERC721URIStorage  {
      function getPlayersWithDeck() public view returns (address[] memory) {
         return playersWithDecks;
     }
+    
 
+     function getUsedInMatchByPlayer(uint _matchId, address _player) public view returns(uint[] memory) {
+         return deckUsedInMatchByPlayer[_matchId][_player];
+     }
 
     
         function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
