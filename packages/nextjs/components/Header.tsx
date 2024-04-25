@@ -19,6 +19,10 @@ export const menuLinks: HeaderMenuLink[] = [
     label: "Home",
     href: "/",
   },
+  {
+    label: "Players",
+    href: "/players"
+  }
 
 ];
 
@@ -35,8 +39,8 @@ export const HeaderMenuLinks = () => {
               href={href}
               passHref
               className={`${
-                isActive ? "bg-primary shadow-md text-black" : ""
-              } hover:bg-primary hover:shadow-md focus:!bg-primary active:!text-black py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col`}
+                isActive ? "bg-primary shadow-md text-neutral" : ""
+              } hover:bg-primary hover:shadow-md focus:!bg-primary text-white active:!text-black py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col`}
             >
               {icon}
               <span>{label}</span>

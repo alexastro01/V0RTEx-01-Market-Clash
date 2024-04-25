@@ -1,9 +1,12 @@
 import React from 'react'
+import PlayersComponent from '~~/components/PlayersComponent'
 
-const page = () => {
+const Players = () => {
   return (
-    <div>page</div>
+    <div>
+        <PlayersComponent />
+    </div>
   )
 }
 
-export default page
+export default Players

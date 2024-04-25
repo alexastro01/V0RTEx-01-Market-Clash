@@ -288,6 +288,10 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         return deckOfPlayer[_address];
     }
 
+     function getPlayersWithDeck() public view returns (address[] memory) {
+        return playersWithDecks;
+    }
+
 
     
         function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
