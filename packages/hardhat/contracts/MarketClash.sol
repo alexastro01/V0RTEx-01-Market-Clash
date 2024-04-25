@@ -50,7 +50,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     mapping(address => mapping (address => uint)) public matchId;
     mapping(uint256 => uint256) public tokenIdDefensePointsInMatch;
     mapping(uint256 => uint256) public tokenIdAttackPointsInMatch;
-     
+
     
 
     //player mappings
@@ -276,6 +276,11 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     function getRecentPackOpenedByUser(address _address) public view returns(uint[] memory){
         return recentOpenedPackByPlayer[_address];
     }
+
+       function getDeckOfPlayer(address _address) public view returns(uint[] memory){
+        return deckOfPlayer[_address];
+    }
+
 
     
         function uint2str(uint _i) internal pure returns (string memory _uintAsString) {

@@ -1,9 +1,34 @@
 import React from 'react'
 import TradingCardView from './TradingCardView'
+import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth';
 
 const CardRevealComponent = ({arrayOfIds} : any) => {
+  const { writeContractAsync: writeYourContractAsync, data } = useScaffoldWriteContract("MarketClash");
 
-    
+  const handleCreateDeck = async () => {
+    try {
+      await writeYourContractAsync(
+        {
+          functionName: "createDeck",
+          //@ts-ignore
+          args: [[parseInt(arrayOfIds[0]), parseInt(arrayOfIds[1]), parseInt(arrayOfIds[2])]],
+        },
+        {
+          //Get mapping of most recent pack on block confirmation
+          //change state, display cards
+          onBlockConfirmation: txnReceipt => {
+   
+            console.log("📦 Transaction blockHash", txnReceipt);
+          },
+          onSuccess: data => {
+            console.log("📦 Transaction success", data);
+          },
+        },
+      );
+    } catch (e) {
+      console.error("Error setting greeting", e);
+    }
+  };
 
   return (
     <div>
@@ -17,7 +42,11 @@ const CardRevealComponent = ({arrayOfIds} : any) => {
         </div>
       ))
     }
+
   </div>
+   <div className='flex justify-center'>
+   <button className='btn btn-primary flex justify-center mt-8' onClick={() => handleCreateDeck()}>Create Deck</button>
+   </div>
   </div>
   
   )
