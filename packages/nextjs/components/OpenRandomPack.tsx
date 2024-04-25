@@ -20,6 +20,9 @@ const OpenRandomPack = () => {
     watch: true,
   });
 
+
+
+
   const [openedTokenIds, setOpenedTokenIds] = useState([""]);
   const [freshOpen, setFreshOpen] = useState(false); 
   const [opened, setOpened] = useState(false);
@@ -29,7 +32,7 @@ const OpenRandomPack = () => {
       await writeYourContractAsync(
         {
           functionName: "openPack",
-          args: [2, 0, 1],
+          args: [Math.floor(Math.random() * 3), Math.floor(Math.random() * 3), Math.floor(Math.random() * 3)]
         },
         {
           //Get mapping of most recent pack on block confirmation

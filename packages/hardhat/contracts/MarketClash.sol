@@ -53,7 +53,9 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
     
 
-    //player mappings
+    //player mappings / arrays
+    address[] public playersWithDecks;
+    mapping(address => bool) public playerHasDeck;
     mapping(address => uint[]) public deckOfPlayer;
 
 
@@ -147,6 +149,11 @@ contract MarketClash is ERC721, ERC721URIStorage  {
          require(ownerOf(_arrayOfCards[1]) == msg.sender, "You must own the card to add it to deck");
          require(ownerOf(_arrayOfCards[2]) == msg.sender, "You must own the card to add it to deck");
 
+         if(playerHasDeck[msg.sender] == false) {
+            playersWithDecks.push(msg.sender);
+         }
+
+        playerHasDeck[msg.sender] = true;
         deckOfPlayer[msg.sender] = _arrayOfCards;
         
     }

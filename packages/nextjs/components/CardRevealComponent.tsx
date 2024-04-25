@@ -1,6 +1,7 @@
 import React from 'react'
 import TradingCardView from './TradingCardView'
 import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth';
+import { notification } from '~~/utils/scaffold-eth';
 
 const CardRevealComponent = ({arrayOfIds} : any) => {
   const { writeContractAsync: writeYourContractAsync, data } = useScaffoldWriteContract("MarketClash");
@@ -19,6 +20,7 @@ const CardRevealComponent = ({arrayOfIds} : any) => {
           onBlockConfirmation: txnReceipt => {
    
             console.log("📦 Transaction blockHash", txnReceipt);
+            notification.success("Deck Created");
           },
           onSuccess: data => {
             console.log("📦 Transaction success", data);
