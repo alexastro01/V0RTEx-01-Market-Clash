@@ -15,3 +15,16 @@ to compare array of events value, call the api with the current array of events 
 it should return an array of events, and a boolean value : newEvent 
 
 if newEvent rerender page 
+
+
+notes for tommorow : 
+make attack function in smart contract
+
+-player x's card attacks player's y card 
+-player y new defence value
+
+updates in frontend 
+
+emit events for : new attack , register it with the api route as mentoined above
+
+emit events in smart contract
