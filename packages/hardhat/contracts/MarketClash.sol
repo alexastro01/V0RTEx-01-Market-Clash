@@ -44,6 +44,13 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     mapping(uint256 => uint256) public tokenIdAttack;
     mapping(uint256 => uint256) public tokenIdDefense;
     mapping(address => uint[]) public recentOpenedPackByPlayer;
+
+
+    //match mappings
+    mapping(address => mapping (address => uint)) public matchId;
+    mapping(uint256 => uint256) public tokenIdDefensePointsInMatch;
+    mapping(uint256 => uint256) public tokenIdAttackPointsInMatch;
+     
     
 
     //player mappings

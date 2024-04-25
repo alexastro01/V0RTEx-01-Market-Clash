@@ -49,7 +49,7 @@ const OpenRandomPack = () => {
   };
 
   useEffect(() => {
-    if(freshOpen === true){
+    if(freshOpen === true && recentPackOpenedByUser !== undefined && recentPackOpenedByUser.length > 1){
     console.log(recentPackOpenedByUser);
 
     const arrayIds = recentPackOpenedByUser
