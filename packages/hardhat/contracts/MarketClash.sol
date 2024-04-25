@@ -204,6 +204,10 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         matchIdCounter++;
     }
 
+    function InitializeTokenIdDefensePointsInMatch(uint _matchId, uint _tokenId, uint _tokenIdDefensePoints) public {
+        tokenIdDefensePointsInMatch[_matchId][_tokenId] = _tokenIdDefensePoints;
+    }
+
 
 
     function getStatBtc(uint multiplier) public view returns(uint256) {
