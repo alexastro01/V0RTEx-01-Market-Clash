@@ -36,7 +36,13 @@ const TradingCardInMatch = ({matchId, tokenId, setSelectedAttacker, selectedAtta
     
     <>
       <div className="relative w-auto h-auto inline-block">
-        <Image src={image} alt="Trading Card" width={200} height={200} className={selectedAttacker === tokenId ? "static border-4 border-green-500 rounded-lg" : "static"} onClick={() => setSelectedAttacker(tokenId)} />
+        <Image src={image} alt="Trading Card" width={200} height={200}
+        
+        className={selectedAttacker === tokenId ? "static border-4 border-green-500 rounded-lg" : selectedAttacked === tokenId ? "static border-4 border-red-500 rounded-lg" : "static"} onClick={() => 
+        {
+        setSelectedAttacked(tokenId)  
+        setSelectedAttacker(tokenId)
+        }} />
         <p className="absolute bottom-3 right-8 text-black text-xl font-bold ">
           {attackPoints.toString()}
         </p>

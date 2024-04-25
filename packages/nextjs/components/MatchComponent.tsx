@@ -27,6 +27,7 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
 
   useEffect(() => {
     console.log('Selected attacker : ', selectedAttacker)
+    console.log("Selected attacked : ", selectedAttacked)
   }, [selectedAttacker])
 
   useEffect(() => {
@@ -35,31 +36,44 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
       "Challanged player cards : ", challengedTokenIds
     )
   }, [challengedTokenIds, challengerTokenIds])
+  
 
-
+  function handleSelectWrongCard() {
+      console.log("wrong Card selected")
+  }
+  
+  
 
   return (
     <div>
       {challengedTokenIds ? 
 
       <ChallengedPlayerBoard 
+      challenged={challenged}
       tokenIds={challengedTokenIds}
        matchId={matchId} 
-       setSelectedAttacker={address === challenged ? setSelectedAttacker : null} 
+       setSelectedAttacker={address === challenged ? setSelectedAttacker : handleSelectWrongCard} 
        selectedAttacker={selectedAttacker} 
-       setSelectedAttacked={address === challenged ? null : setSelectedAttacked}
+       setSelectedAttacked={address === challenged ? handleSelectWrongCard : setSelectedAttacked}
        selectedAttacked={selectedAttacked}
+       addressOfUser={address}
        />
        : <div>loading...</div>}
 
+      <div className='flex justify-center items-center h-full my-0'>
+        <button className='btn btn-primary '>Attack</button>
+      </div>
+   
       {challengerTokenIds ?
        <ChallengerPlayerBoard 
+       challenger={challenger}
        tokenIds={challengerTokenIds} 
        matchId={matchId}
-       setSelectedAttacker={address === challenger ? setSelectedAttacker : null} 
+       setSelectedAttacker={address === challenger ? setSelectedAttacker : handleSelectWrongCard} 
        selectedAttacker={selectedAttacker}
-       setSelectedAttacked={address === challenger ? null : setSelectedAttacked}
+       setSelectedAttacked={address === challenger ? handleSelectWrongCard : setSelectedAttacked}
        selectedAttacked={selectedAttacked}
+       addressOfUser={address}
        /> 
        
        : <div>loading...</div>}
