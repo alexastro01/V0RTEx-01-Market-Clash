@@ -8,31 +8,31 @@ import ChallengePlayer from './ChallengePlayer';
 
 const PlayersComponent = () => {
 
-    const {address: addressOfUser} = useAccount();
 
-    const { data: players } = useScaffoldReadContract({
-        contractName: "MarketClash",
-        functionName: "getPlayersWithDeck"
-      });
 
-      useEffect(() => {
-         console.log(players)
-      }, [players])
+  const { data: players } = useScaffoldReadContract({
+    contractName: "MarketClash",
+    functionName: "getPlayersWithDeck"
+  });
+
+  useEffect(() => {
+    console.log(players)
+  }, [players])
 
 
   return (
-  <div className="mt-8">
-{players ? (
-  players.map((address, index) => (
-    <div className='flex justify-center'>
-    <ChallengePlayer address={address} />
-    </div>
-  ))
-) : (
-  <div>loading...</div>
-)}
+    <div className="mt-8">
+      {players ? (
+        players.map((address, index) => (
+          <div className='flex justify-center'>
+            <ChallengePlayer address={address} index={index} />
+          </div>
+        ))
+      ) : (
+        <div>loading...</div>
+      )}
 
-  </div>
+    </div>
   )
 }
 

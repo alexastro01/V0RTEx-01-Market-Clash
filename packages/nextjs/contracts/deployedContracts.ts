@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0x5261Ad165bEB9b0d1996aFF1f2141806992A5AE3",
+      address: "0x84EDAf725e649D0034348f345eBAA05624566861",
       abi: [
         {
           inputs: [],
@@ -349,6 +349,30 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_matchId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_player",
+              type: "address",
+            },
+          ],
+          name: "getDeckUsedInMatchByPlayer",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "getETHPrice",
           outputs: [
@@ -458,30 +482,6 @@ const deployedContracts = {
               internalType: "uint256",
               name: "",
               type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_matchId",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "_player",
-              type: "address",
-            },
-          ],
-          name: "getUsedInMatchByPlayer",
-          outputs: [
-            {
-              internalType: "uint256[]",
-              name: "",
-              type: "uint256[]",
             },
           ],
           stateMutability: "view",
