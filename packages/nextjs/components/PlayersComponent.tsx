@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { Address } from './scaffold-eth'
 import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
 import { useAccount } from 'wagmi';
+import ChallengePlayer from './ChallengePlayer';
 
 const PlayersComponent = () => {
 
@@ -24,11 +25,7 @@ const PlayersComponent = () => {
 {players ? (
   players.map((address, index) => (
     <div className='flex justify-center'>
-    <div className='m-4 flex justify-center'>
-    <Address key={index} address={address} size="xl"  />
-    <button className={addressOfUser === address ? "btn btn-accent btn-sm ml-2 min-w-36" : "btn btn-primary btn-sm ml-2 min-w-36"}>{addressOfUser === address ? "You" : "Challenge"}</button>
-    </div>
- 
+    <ChallengePlayer address={address} />
     </div>
   ))
 ) : (

@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0xc52bd670828329cd3c3F1E5A228426aaB1374caD",
+      address: "0x5261Ad165bEB9b0d1996aFF1f2141806992A5AE3",
       abi: [
         {
           inputs: [],
@@ -272,6 +272,35 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "deckUsedInMatchByPlayer",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
               name: "tokenId",
               type: "uint256",
             },
@@ -438,6 +467,30 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "uint256",
+              name: "_matchId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_player",
+              type: "address",
+            },
+          ],
+          name: "getUsedInMatchByPlayer",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
               name: "",
               type: "uint256",
             },
@@ -451,6 +504,19 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_challangedPlayer",
+              type: "address",
+            },
+          ],
+          name: "initializeMatch",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -491,6 +557,19 @@ const deployedContracts = {
             },
           ],
           name: "matchId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "matchIdCounter",
           outputs: [
             {
               internalType: "uint256",
@@ -570,6 +649,44 @@ const deployedContracts = {
             },
           ],
           name: "ownerOf",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "player1InMatch",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "player2InMatch",
           outputs: [
             {
               internalType: "address",
@@ -769,6 +886,11 @@ const deployedContracts = {
               name: "",
               type: "uint256",
             },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
           ],
           name: "tokenIdAttackPointsInMatch",
           outputs: [
@@ -815,6 +937,11 @@ const deployedContracts = {
         },
         {
           inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
             {
               internalType: "uint256",
               name: "",
