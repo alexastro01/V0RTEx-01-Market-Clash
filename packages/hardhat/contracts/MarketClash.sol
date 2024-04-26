@@ -235,7 +235,11 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
         uint tokenIdAttackPoints = tokenIdAttack[_tokenIdAttacker];
 
+         if (tokenIdDefensePoints >= tokenIdAttackPoints) {
         tokenIdDefensePointsInMatch[matchIdTargeted][_tokenIdAttacked] = tokenIdDefensePoints - tokenIdAttackPoints;
+        } else {
+        tokenIdDefensePointsInMatch[matchIdTargeted][_tokenIdAttacked] = 0;
+        }
 
         if(msg.sender == _playerChallenger) {
             turnOfPlayer[matchIdTargeted] = _playerChallenged;

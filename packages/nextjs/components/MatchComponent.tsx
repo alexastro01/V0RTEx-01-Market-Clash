@@ -12,6 +12,7 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
 
   const [selectedAttacker, setSelectedAttacker] = useState(0);
   const [selectedAttacked, setSelectedAttacked] = useState(0);
+  const [resetSelectedState, setResetSelectedState] = useState(false);
   const { address } = useAccount();
 
   const { data: challengerTokenIds } = useScaffoldReadContract({
@@ -37,6 +38,8 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
     console.log("Selected attacked : ", selectedAttacked)
   }, [selectedAttacker])
 
+
+
   useEffect(() => {
     console.log(
       "Challanger player cards : ", challengerTokenIds,
@@ -44,7 +47,13 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
     )
   }, [challengedTokenIds, challengerTokenIds]);
 
-
+  useEffect(() => {
+     if(resetSelectedState){
+       setSelectedAttacked(0);
+       setSelectedAttacker(0);
+       setResetSelectedState(false);
+     }
+  }, [resetSelectedState])
   
 
   function handleSelectWrongCard() {
@@ -72,7 +81,7 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
 
      { 
   turnOfPlayer === address && selectedAttacked > -1 && selectedAttacker > -1 && 
-       <AttackComponent selectedAttacker={selectedAttacker} selectedAttacked={selectedAttacked} challenger={challenger} challenged={challenged} /> 
+       <AttackComponent selectedAttacker={selectedAttacker} selectedAttacked={selectedAttacked} challenger={challenger} challenged={challenged} setResetSelectedState={setResetSelectedState} /> 
        
       }
 

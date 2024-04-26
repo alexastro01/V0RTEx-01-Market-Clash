@@ -32,7 +32,7 @@ const TradingCardInMatch = ({matchId, tokenId, setSelectedAttacker, selectedAtta
 
     return (
         <div>
-    {image && attackPoints && defensePoints ?
+    {image && attackPoints && parseInt(defensePoints?.toString() ?? '') > 0  &&
     
     <>
       <div className="relative w-auto h-auto inline-block">
@@ -47,16 +47,35 @@ const TradingCardInMatch = ({matchId, tokenId, setSelectedAttacker, selectedAtta
           {attackPoints.toString()}
         </p>
         <p className="absolute bottom-3 left-8 text-black text-xl font-bold ">
-          {defensePoints.toString()}
+          {defensePoints && defensePoints.toString()}
         </p>
       </div>
     </>
     
     
-    
-    
-      : <div>Loading</div>
+
     }
+
+{image && attackPoints && parseInt(defensePoints?.toString() ?? '') < 1  &&
+    
+    <>
+      <div className="relative w-auto h-auto inline-block">
+        <Image src={image} alt="Trading Card" width={200} height={200}
+        
+        className={"static border-4 grayscale " } />
+        <p className="absolute bottom-3 right-8 text-black text-xl font-bold ">
+          {attackPoints.toString()}
+        </p>
+        <p className="absolute bottom-3 left-8 text-black text-xl font-bold ">
+          0
+        </p>
+      </div>
+    </>
+    
+    
+  
+    }
+        
            
         </div>
       )

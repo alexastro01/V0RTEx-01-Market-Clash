@@ -28,3 +28,11 @@ updates in frontend
 emit events for : new attack , register it with the api route as mentoined above
 
 emit events in smart contract
+
+
+
+Tommorow : 
+-Check for match winner
+-Display winner on match finish 
+
+-New card for ETH , dark blue color

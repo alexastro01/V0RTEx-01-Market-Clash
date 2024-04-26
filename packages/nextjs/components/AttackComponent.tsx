@@ -1,7 +1,7 @@
 import React from 'react'
 import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth';
 
-const AttackComponent = ({selectedAttacker, selectedAttacked, challenger, challenged} : any) => {
+const AttackComponent = ({selectedAttacker, selectedAttacked, challenger, challenged, setResetSelectedState} : any) => {
 
     const { writeContractAsync: writeYourContractAsync, data } = useScaffoldWriteContract("MarketClash");
 
@@ -16,7 +16,7 @@ const AttackComponent = ({selectedAttacker, selectedAttacked, challenger, challe
               //Get mapping of most recent pack on block confirmation
               //change state, display cards
               onBlockConfirmation: txnReceipt => {
-   
+                setResetSelectedState(true);
                 console.log("📦 Transaction blockHash", txnReceipt);
               },
               onSuccess: data => {
