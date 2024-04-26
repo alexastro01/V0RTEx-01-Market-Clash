@@ -1,8 +1,10 @@
 on github publishied 
 
--.env example
--add Aggregator chainlink contract manually in github repo
-
+................................
+- .env example
+- add Aggregator chainlink contract manually in github repo
+- delete notes file
+................................
 when attacking, substract defense points of card attacked 
 when match over, reset card stats
 
@@ -32,7 +34,16 @@ emit events in smart contract
 
 
 Tommorow : 
+
+
 -Check for match winner
 -Display winner on match finish 
 
 -New card for ETH , dark blue color
+-Implement new card for eth 
+
+-Covalent API
+-Player matches history tab
+
+
+Get tokens on win
