@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0x84EDAf725e649D0034348f345eBAA05624566861",
+      address: "0x1c20A90952650E09b8c80ff0B79210d25eCAD635",
       abi: [
         {
           inputs: [],
@@ -125,6 +125,37 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
+              indexed: false,
+              internalType: "address",
+              name: "playerChallenger",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "playerChallenged",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "tokenIdAttacker",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "tokenIdAttacked",
+              type: "uint256",
+            },
+          ],
+          name: "attackInMatchEvent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
               indexed: true,
               internalType: "uint256",
               name: "cardOne",
@@ -149,6 +180,24 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "_matchId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "InitializeTokenIdDefensePointsInMatch",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "to",
               type: "address",
@@ -160,6 +209,34 @@ const deployedContracts = {
             },
           ],
           name: "approve",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_playerChallenger",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_playerChallenged",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_tokenIdAttacker",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_tokenIdAttacked",
+              type: "uint256",
+            },
+          ],
+          name: "attackInMatch",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -1005,6 +1082,25 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "turnOfPlayer",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
               name: "number",
               type: "uint256",
             },
@@ -1018,6 +1114,25 @@ const deployedContracts = {
             },
           ],
           stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "winnerOfMatch",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],

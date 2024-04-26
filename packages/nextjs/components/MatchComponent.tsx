@@ -5,6 +5,7 @@ import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
 import ChallengedPlayerBoard from './ChallengedPlayerBoard';
 import ChallengerPlayerBoard from './ChallengerPlayerBoard';
 import { useAccount } from 'wagmi';
+import AttackComponent from './AttackComponent';
 
 
 const MatchComponent = ({ challenger, challenged, matchId }: any) => {
@@ -25,6 +26,12 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
     args: [matchId, challenged],
   });
 
+  const { data: turnOfPlayer } = useScaffoldReadContract({
+    contractName: "MarketClash",
+    functionName: "turnOfPlayer",
+    args: [matchId],
+  });
+
   useEffect(() => {
     console.log('Selected attacker : ', selectedAttacker)
     console.log("Selected attacked : ", selectedAttacked)
@@ -35,7 +42,9 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
       "Challanger player cards : ", challengerTokenIds,
       "Challanged player cards : ", challengedTokenIds
     )
-  }, [challengedTokenIds, challengerTokenIds])
+  }, [challengedTokenIds, challengerTokenIds]);
+
+
   
 
   function handleSelectWrongCard() {
@@ -60,9 +69,23 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
        />
        : <div>loading...</div>}
 
-      <div className='flex justify-center items-center h-full my-0'>
-        <button className='btn btn-primary '>Attack</button>
-      </div>
+
+     { 
+  turnOfPlayer === address && selectedAttacked > -1 && selectedAttacker > -1 && 
+       <AttackComponent selectedAttacker={selectedAttacker} selectedAttacked={selectedAttacked} challenger={challenger} challenged={challenged} /> 
+       
+      }
+
+{ 
+  turnOfPlayer !== address && selectedAttacked > -1 && selectedAttacker > -1 && 
+  <div className='flex justify-center items-center h-full my-0'>
+  <button className='btn' disabled={true}>Opponent's turn</button>
+</div>
+       
+      }
+
+
+
    
       {challengerTokenIds ?
        <ChallengerPlayerBoard 

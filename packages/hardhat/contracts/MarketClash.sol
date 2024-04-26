@@ -202,13 +202,26 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         
         deckUsedInMatchByPlayer[matchIdCounter][msg.sender] = deckOfPlayerChallenger;
         deckUsedInMatchByPlayer[matchIdCounter][_challangedPlayer] = deckOfPlayerChallenged;
+
+
+        InitializeTokenIdDefensePointsInMatch(matchIdCounter, deckOfPlayerChallenger[0]);
+        InitializeTokenIdDefensePointsInMatch(matchIdCounter, deckOfPlayerChallenger[1]);
+        InitializeTokenIdDefensePointsInMatch(matchIdCounter, deckOfPlayerChallenger[2]);
+
+        InitializeTokenIdDefensePointsInMatch(matchIdCounter, deckOfPlayerChallenged[0]);
+        InitializeTokenIdDefensePointsInMatch(matchIdCounter, deckOfPlayerChallenged[1]);
+        InitializeTokenIdDefensePointsInMatch(matchIdCounter, deckOfPlayerChallenged[2]);
+
            
         matchId[msg.sender][_challangedPlayer] = matchIdCounter;
+        turnOfPlayer[matchIdCounter] = msg.sender;
+
         matchIdCounter++;
     }
 
-    function InitializeTokenIdDefensePointsInMatch(uint _matchId, uint _tokenId, uint _tokenIdDefensePoints) public {
-        tokenIdDefensePointsInMatch[_matchId][_tokenId] = _tokenIdDefensePoints;
+    function InitializeTokenIdDefensePointsInMatch(uint _matchId, uint _tokenId) public {
+        uint tokenIdDefensePoints = tokenIdDefense[_tokenId];
+        tokenIdDefensePointsInMatch[_matchId][_tokenId] = tokenIdDefensePoints;
     }
 
 

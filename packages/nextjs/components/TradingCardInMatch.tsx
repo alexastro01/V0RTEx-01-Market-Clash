@@ -20,8 +20,8 @@ const TradingCardInMatch = ({matchId, tokenId, setSelectedAttacker, selectedAtta
 
       const { data: defensePoints } = useScaffoldReadContract({
         contractName: "MarketClash",
-        functionName: "tokenIdDefense",
-        args: [tokenId],
+        functionName: "tokenIdDefensePointsInMatch",
+        args: [matchId,tokenId],
       });    
     
 
