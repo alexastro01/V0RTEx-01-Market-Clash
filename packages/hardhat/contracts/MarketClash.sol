@@ -16,6 +16,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
    //Events
 
    event openedPackByPlayer(uint indexed cardOne, uint indexed cardTwo, uint indexed cardThree);
+   event attackInMatchEvent(address playerChallenger, address playerChallenged, uint indexed tokenIdAttacker, uint indexed tokenIdAttacked);
 
   //pass array of enums
    enum Class {
@@ -68,6 +69,8 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     mapping(address => uint[]) public deckOfPlayer;
     //[matchId][player] = [1, 2, 3]; 
     mapping(uint256 => mapping(address => uint[])) public deckUsedInMatchByPlayer;
+    mapping(uint256 => address) public turnOfPlayer;
+    mapping(uint256 => address) public winnerOfMatch;
 
 
     // Create price feed
@@ -206,6 +209,29 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
     function InitializeTokenIdDefensePointsInMatch(uint _matchId, uint _tokenId, uint _tokenIdDefensePoints) public {
         tokenIdDefensePointsInMatch[_matchId][_tokenId] = _tokenIdDefensePoints;
+    }
+
+
+    function attackInMatch(address _playerChallenger, address _playerChallenged, uint _tokenIdAttacker, uint _tokenIdAttacked) public {
+
+        require(ownerOf(_tokenIdAttacker) == msg.sender, "You must own the card to attack with it");
+        uint matchIdTargeted = matchId[_playerChallenger][_playerChallenged];
+        require(turnOfPlayer[matchIdTargeted] == msg.sender, "It is not your turn to attack");
+        
+        uint tokenIdDefensePoints = tokenIdDefensePointsInMatch[matchIdTargeted][_tokenIdAttacked];
+
+        uint tokenIdAttackPoints = tokenIdAttack[_tokenIdAttacker];
+
+        tokenIdDefensePointsInMatch[matchIdTargeted][_tokenIdAttacked] = tokenIdDefensePoints - tokenIdAttackPoints;
+
+        if(msg.sender == _playerChallenger) {
+            turnOfPlayer[matchIdTargeted] = _playerChallenged;
+        } else {
+            turnOfPlayer[matchIdTargeted] = _playerChallenger;
+        }
+
+        emit attackInMatchEvent(_playerChallenger, _playerChallenged, _tokenIdAttacker, _tokenIdAttacked); 
+        
     }
 
 
