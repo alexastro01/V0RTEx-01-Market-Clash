@@ -6,6 +6,7 @@ import ChallengedPlayerBoard from './ChallengedPlayerBoard';
 import ChallengerPlayerBoard from './ChallengerPlayerBoard';
 import { useAccount } from 'wagmi';
 import AttackComponent from './AttackComponent';
+import { notification } from '~~/utils/scaffold-eth';
 
 
 const MatchComponent = ({ challenger, challenged, matchId }: any) => {
@@ -36,7 +37,13 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
   useEffect(() => {
     console.log('Selected attacker : ', selectedAttacker)
     console.log("Selected attacked : ", selectedAttacked)
-  }, [selectedAttacker])
+  }, [selectedAttacker]);
+
+  const {data: winner} = useScaffoldReadContract({
+    contractName: "MarketClash",
+    functionName: "winnerOfMatch",
+    args: [matchId],
+  });
 
 
 
@@ -53,7 +60,16 @@ const MatchComponent = ({ challenger, challenged, matchId }: any) => {
        setSelectedAttacker(0);
        setResetSelectedState(false);
      }
-  }, [resetSelectedState])
+  }, [resetSelectedState]);
+
+  useEffect(() => {
+     if(winner === challenger) {
+        notification.success(`Winner - ${challenger} `);
+     }
+     if(winner === challenged) {
+      notification.success(`Winner - ${challenged} `);
+   }
+  }, [winner])
   
 
   function handleSelectWrongCard() {

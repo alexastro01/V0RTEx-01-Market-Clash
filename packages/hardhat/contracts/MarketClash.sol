@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-// Deploy this contract on Scroll Sepolia
 
 // Importing OpenZeppelin contracts
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
@@ -103,6 +102,9 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
 
     constructor() ERC721("MarketClash", "MK") {
+        
+       //init chainlink feeds
+
         priceFeedBtc = AggregatorV3Interface(btcuscAddress);
         priceFeedETH = AggregatorV3Interface(ethusdAddress);
         priceFeedLink = AggregatorV3Interface(linkusdAddress);
@@ -278,7 +280,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         return address(0);
        }
 
-       
+
     }
 
 
