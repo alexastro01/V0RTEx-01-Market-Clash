@@ -16,7 +16,7 @@ Market clash is an onchain multiplayer collectible card game where the stats of 
 ## Demo Link And Smart Contract Link
 
 - Demo link : 
-- Smart Contract Address : 
+- Smart Contract Address : https://sepolia.scrollscan.com/address/0x4Ad71B13a398466CCC40F98c3B38eeD00A4263e2
 
 
 ## Project Structure : 
