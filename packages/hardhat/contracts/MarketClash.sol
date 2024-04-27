@@ -95,9 +95,9 @@ contract MarketClash is ERC721, ERC721URIStorage  {
     uint mediumMultiplier = 2;
     uint lowMultiplier = 1;
 
-    string btcImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmdztjsyvKcLzjpcAfN2yWEgrGc46vAyKTUGZ6aYFCStu3/1.png";
-    string ethImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmdztjsyvKcLzjpcAfN2yWEgrGc46vAyKTUGZ6aYFCStu3/2.png";
-    string linkImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmdztjsyvKcLzjpcAfN2yWEgrGc46vAyKTUGZ6aYFCStu3/3.png";
+    string btcImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmXbYivwTQrtwm23DLay3tCShmC8gzSs4BNpqvgRPf3V6Q/1.png";
+    string ethImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmXbYivwTQrtwm23DLay3tCShmC8gzSs4BNpqvgRPf3V6Q/2.png";
+    string linkImage = "https://fuchsia-defeated-ermine-208.mypinata.cloud/ipfs/QmXbYivwTQrtwm23DLay3tCShmC8gzSs4BNpqvgRPf3V6Q/3.png";
 
     uint currentTokenId = 0;
 
@@ -270,13 +270,15 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         uint totalDefensePointsChallenger = firstCardDefensePointsChallenger + secondCardDefensePointsChallenger + thirdCardDefensePointsChallenger; 
         uint totalDefensePointsChallenged = firstCardDefensePointsChallenged + secondCardDefensePointsChallenged + thirdCardDefensePointsChallenged;
 
-        if(totalDefensePointsChallenger > totalDefensePointsChallenged) {
-            return _playerChallenger;
-        } else if (totalDefensePointsChallenger < totalDefensePointsChallenged) {
-            return _playerChallenged;
-        } else {
-            return address(0);
-        }
+       if(totalDefensePointsChallenger < 1) {
+        return _playerChallenged;
+       } else if (totalDefensePointsChallenged < 1) {
+        return _playerChallenger;
+       } else {
+        return address(0);
+       }
+
+       
     }
 
 
