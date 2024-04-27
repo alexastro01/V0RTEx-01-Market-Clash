@@ -4,6 +4,8 @@ import React, { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MatchComponent from '~~/components/MatchComponent';
 import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
+
+
 const Match = () => {
 
     const searchParams = useSearchParams()
