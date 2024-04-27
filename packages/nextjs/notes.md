@@ -38,6 +38,7 @@ Tommorow :
 
 -Check for match winner
 -Display winner on match finish 
+-Handle winner of match 
 
 -New card for ETH , dark blue color
 -Implement new card for eth 
@@ -45,5 +46,6 @@ Tommorow :
 -Covalent API
 -Player matches history tab
 
+Start docs - instructions to play match
 
 Get tokens on win

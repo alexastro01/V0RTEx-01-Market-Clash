@@ -247,37 +247,37 @@ contract MarketClash is ERC721, ERC721URIStorage  {
             turnOfPlayer[matchIdTargeted] = _playerChallenger;
         }
 
-        // address winner = checkForWinnerInMatch(matchIdTargeted, _playerChallenger, _playerChallenged);
-        // winnerOfMatch[matchIdTargeted] = winner;   
+        address winner = checkForWinnerInMatch(matchIdTargeted, _playerChallenger, _playerChallenged);
+        winnerOfMatch[matchIdTargeted] = winner;   
 
         emit attackInMatchEvent(_playerChallenger, _playerChallenged, _tokenIdAttacker, _tokenIdAttacked); 
       
     }
 
-    // function checkForWinnerInMatch(uint _matchId, address _playerChallenger, address _playerChallenged) public view returns(address) {
+    function checkForWinnerInMatch(uint _matchId, address _playerChallenger, address _playerChallenged) public view returns(address) {
         
-    //    uint[] memory tokensChallenger = deckUsedInMatchByPlayer[_matchId][_playerChallenger];
-    //    uint[] memory tokensChallenged = deckUsedInMatchByPlayer[_matchId][_playerChallenged];
+       uint[] memory tokensChallenger = deckUsedInMatchByPlayer[_matchId][_playerChallenger];
+       uint[] memory tokensChallenged = deckUsedInMatchByPlayer[_matchId][_playerChallenged];
         
-    //    uint firstCardDefensePointsChallenger = tokenIdDefensePointsInMatch[_matchId][tokensChallenger[0]];
-    //    uint secondCardDefensePointsChallenger = tokenIdDefensePointsInMatch[_matchId][tokensChallenger[1]];
-    //    uint thirdCardDefensePointsChallenger = tokenIdDefensePointsInMatch[_matchId][tokensChallenger[2]];
+       uint firstCardDefensePointsChallenger = tokenIdDefensePointsInMatch[_matchId][tokensChallenger[0]];
+       uint secondCardDefensePointsChallenger = tokenIdDefensePointsInMatch[_matchId][tokensChallenger[1]];
+       uint thirdCardDefensePointsChallenger = tokenIdDefensePointsInMatch[_matchId][tokensChallenger[2]];
 
-    //    uint firstCardDefensePointsChallenged = tokenIdDefensePointsInMatch[_matchId][tokensChallenged[0]];
-    //    uint secondCardDefensePointsChallenged = tokenIdDefensePointsInMatch[_matchId][tokensChallenged[1]];
-    //    uint thirdCardDefensePointsChallenged = tokenIdDefensePointsInMatch[_matchId][tokensChallenged[2]];
+       uint firstCardDefensePointsChallenged = tokenIdDefensePointsInMatch[_matchId][tokensChallenged[0]];
+       uint secondCardDefensePointsChallenged = tokenIdDefensePointsInMatch[_matchId][tokensChallenged[1]];
+       uint thirdCardDefensePointsChallenged = tokenIdDefensePointsInMatch[_matchId][tokensChallenged[2]];
 
-    //     uint totalDefensePointsChallenger = firstCardDefensePointsChallenger + secondCardDefensePointsChallenger + thirdCardDefensePointsChallenger; 
-    //     uint totalDefensePointsChallenged = firstCardDefensePointsChallenged + secondCardDefensePointsChallenged + thirdCardDefensePointsChallenged;
+        uint totalDefensePointsChallenger = firstCardDefensePointsChallenger + secondCardDefensePointsChallenger + thirdCardDefensePointsChallenger; 
+        uint totalDefensePointsChallenged = firstCardDefensePointsChallenged + secondCardDefensePointsChallenged + thirdCardDefensePointsChallenged;
 
-    //     if(totalDefensePointsChallenger > totalDefensePointsChallenged) {
-    //         return _playerChallenger;
-    //     } else if (totalDefensePointsChallenger < totalDefensePointsChallenged) {
-    //         return _playerChallenged;
-    //     } else {
-    //         return address(0);
-    //     }
-    // }
+        if(totalDefensePointsChallenger > totalDefensePointsChallenged) {
+            return _playerChallenger;
+        } else if (totalDefensePointsChallenger < totalDefensePointsChallenged) {
+            return _playerChallenged;
+        } else {
+            return address(0);
+        }
+    }
 
 
 

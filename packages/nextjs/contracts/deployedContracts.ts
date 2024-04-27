@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   534351: {
     MarketClash: {
-      address: "0xfc0AfAF1C1cc963af236601D1D44D37431073379",
+      address: "0x25E72bd24371DDc09E3D9F93c6576Da082d344B1",
       abi: [
         {
           inputs: [],
@@ -284,6 +284,35 @@ const deployedContracts = {
               internalType: "uint256",
               name: "",
               type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_matchId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_playerChallenger",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_playerChallenged",
+              type: "address",
+            },
+          ],
+          name: "checkForWinnerInMatch",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
             },
           ],
           stateMutability: "view",
