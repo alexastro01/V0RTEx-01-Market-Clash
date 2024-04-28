@@ -14,7 +14,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract MarketClash is ERC721, ERC721URIStorage  {
 
    // Declare a state variable to store the address of the ERC20 contract
-    address public erc20ContractAddress;
+    address public erc20ContractAddress = 0xf4CB486843dbd20211DCaD7fe602Fb6bc205C4B3;
     // Declare a variable to represent the ERC20 interface
     IERC20 private erc20Contract;
 
@@ -108,12 +108,12 @@ contract MarketClash is ERC721, ERC721URIStorage  {
 
 
     constructor() ERC721("MarketClash", "MK") {
-        
-       //init chainlink feeds
+      // init chainlink feeds
 
         priceFeedBtc = AggregatorV3Interface(btcuscAddress);
         priceFeedETH = AggregatorV3Interface(ethusdAddress);
         priceFeedLink = AggregatorV3Interface(linkusdAddress);
+        erc20Contract = IERC20(erc20ContractAddress);
     }
 
 
@@ -262,7 +262,7 @@ contract MarketClash is ERC721, ERC721URIStorage  {
       
     }
 
-    function checkForWinnerInMatch(uint _matchId, address _playerChallenger, address _playerChallenged) public view returns(address) {
+    function checkForWinnerInMatch(uint _matchId, address _playerChallenger, address _playerChallenged) public returns(address) {
         
        uint[] memory tokensChallenger = deckUsedInMatchByPlayer[_matchId][_playerChallenger];
        uint[] memory tokensChallenged = deckUsedInMatchByPlayer[_matchId][_playerChallenged];
@@ -278,14 +278,20 @@ contract MarketClash is ERC721, ERC721URIStorage  {
         uint totalDefensePointsChallenger = firstCardDefensePointsChallenger + secondCardDefensePointsChallenger + thirdCardDefensePointsChallenger; 
         uint totalDefensePointsChallenged = firstCardDefensePointsChallenged + secondCardDefensePointsChallenged + thirdCardDefensePointsChallenged;
 
-       if(totalDefensePointsChallenger < 1) {
-        return _playerChallenged;
-       } else if (totalDefensePointsChallenged < 1) {
-        return _playerChallenger;
-       } else {
-        return address(0);
-       }
 
+
+        if(totalDefensePointsChallenger > totalDefensePointsChallenged) {
+            //50 $MTK to the winner
+            erc20Contract.transfer(_playerChallenger, 50);
+            return _playerChallenger;
+
+        } else if (totalDefensePointsChallenger < totalDefensePointsChallenged) {
+            //50 $MTK to the winner
+            erc20Contract.transfer(_playerChallenged, 50);
+            return _playerChallenged;
+        } else {
+            return address(0);
+        }
 
     }
 
