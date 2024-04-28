@@ -10,8 +10,14 @@ import "@openzeppelin/contracts/utils/Base64.sol";
 
 // Importing Chainlink contracts
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract MarketClash is ERC721, ERC721URIStorage  {
+
+   // Declare a state variable to store the address of the ERC20 contract
+    address public erc20ContractAddress;
+    // Declare a variable to represent the ERC20 interface
+    IERC20 private erc20Contract;
 
    //Events
 
