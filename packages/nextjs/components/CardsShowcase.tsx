@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThreeDCardDemo } from './CardDemo'
-import { TypewriterEffectSmooth } from './ui/typewritter-effect';
+
 
 const CardsShowcase = () => {
     const words = [
